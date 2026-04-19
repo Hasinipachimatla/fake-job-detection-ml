@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Job Detection</title>
+</head>
+<body style="text-align:center; font-family:Arial; margin-top:50px; background-color:#f2f2f2;">
+
+    <h1 style="color:#333;">Fake Job Posting Detection</h1>
+
+    <form action="/predict" method="post">
+        <textarea name="job_description" rows="6" cols="50"
+        placeholder="Enter job description here..."
+        style="padding:10px; border-radius:8px;"></textarea>
+
+        <br><br>
+
+        <button type="submit"
+        style="padding:10px 20px; border:none; background-color:#4CAF50; color:white; border-radius:5px;">
+        Check
+        </button>
+    </form>
+
+    <h2 style="color:red;">{{ prediction_text }}</h2>
+
+</body>
+</html>
