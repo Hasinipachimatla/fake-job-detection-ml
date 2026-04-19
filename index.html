@@ -1,26 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Fake Job Detection</title>
-</head>
-<body style="text-align:center; font-family:Arial; margin-top:50px; background-color:#f2f2f2;">
+    <title>Fake Job Detector 🔍</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 50px;
+        }
+        textarea {
+            width: 60%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .predict-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        .example-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .real {
+            color: green;
+        }
+        .fake {
+            color: red;
+        }
+        .reason {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
 
-    <h1 style="color:#333;">Fake Job Posting Detection</h1>
+    <script>
+        function fillExample() {
+            document.getElementById("job_desc").value =
+            "Work from home and earn easy money quickly. No experience needed. Limited offer!";
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Fake Job Detector 🔍</h1>
 
     <form action="/predict" method="post">
-        <textarea name="job_description" rows="6" cols="50"
-        placeholder="Enter job description here..."
-        style="padding:10px; border-radius:8px;"></textarea>
+        <textarea id="job_desc" name="job_desc" placeholder="Paste job description here..."></textarea><br>
 
-        <br><br>
-
-        <button type="submit"
-        style="padding:10px 20px; border:none; background-color:#4CAF50; color:white; border-radius:5px;">
-        Check
-        </button>
+        <button class="predict-btn" type="submit">Check Job</button>
+        <button class="example-btn" type="button" onclick="fillExample()">Try Example</button>
     </form>
 
-    <h2 style="color:red;">{{ prediction_text }}</h2>
+    {% if prediction_text %}
+        <div class="result 
+            {% if 'Fake' in prediction_text %}fake{% else %}real{% endif %}">
+            {{ prediction_text }}
+        </div>
+
+        <div class="reason">
+            {{ reason_text }}
+        </div>
+    {% endif %}
 
 </body>
 </html>
